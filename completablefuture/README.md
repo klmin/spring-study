@@ -1,2 +1,2 @@
 # cfuture-tutorial
-completeablefure, forkjoinpool, ThreadPoolTaskExecutor, virtualthread 학습 
+completeablefure, forkjoinpool, ThreadPoolTaskExecutor, virtualthread study 

@@ -1,2 +1,2 @@
 # restclient
-restclient 학습 
+restclient study

@@ -33,7 +33,6 @@ public class RestClientConfig {
     @Bean
     public RestClient restClient() {
         return RestClient.builder()
-
                 .messageConverters(
                         converters -> {
                             converters.removeIf(MappingJackson2HttpMessageConverter.class::isInstance);
