@@ -1,0 +1,21 @@
+---
+spring:
+  config:
+    activate:
+      on-profile: postgres
+    import: classpath:/db/application-postgres.yml
+
+---
+spring:
+  config:
+    activate:
+      on-profile: maria
+    import: classpath:/db/application-maria.yml
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: h2
+    import: classpath:/db/application-h2.yml
