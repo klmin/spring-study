@@ -1,0 +1,44 @@
+spring:
+  profiles:
+    active: local
+    group:
+      local:
+        - local
+      test:
+        - test
+      dev:
+        - dev
+      prod:
+        - prod
+    include:
+      - common
+      - db
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+    import: classpath:/profile/application-test.yml
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+    import: classpath:/profile/application-local.yml
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+    import: classpath:/profile/application-dev.yml
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+    import: classpath:/profile/application-prod.yml
