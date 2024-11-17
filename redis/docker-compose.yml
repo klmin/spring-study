@@ -1,0 +1,10 @@
+services:
+  redis:
+    image: 'redis:latest'
+    command: ["redis-server", "--requirepass", "klmin6394"]
+    volumes:
+      - ./redis/data:/data
+    ports:
+      - '6379:6379'
+    restart: always
+

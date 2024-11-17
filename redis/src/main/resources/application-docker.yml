@@ -1,0 +1,11 @@
+spring:
+  docker:
+    compose:
+      enabled: true
+      file: redis/docker-compose.yml
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: klmin6394

@@ -1,6 +1,23 @@
-spring:
-  data:
-    redis:
-      host: 127.0.0.1
-      port: 6379
-      password: klmin6394
+spring :
+  profiles :
+    active : local
+    group :
+      local:
+        - local
+      docker:
+        - docker
+
+---
+spring :
+  config :
+    activate :
+      on-profile : local
+
+
+---
+spring :
+  config :
+    activate :
+      on-profile : docker
+
+
