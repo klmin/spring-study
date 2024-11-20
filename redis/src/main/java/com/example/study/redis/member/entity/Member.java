@@ -24,4 +24,11 @@ public class Member implements Serializable {
         return new Member(id, name, age, hobby, score);
     }
 
+    public void change(String name, int age, List<String> hobby, Map<String, Object> score){
+        this.name = name;
+        this.age = age;
+        this.hobby = hobby;
+        this.score = score;
+    }
+
 }
