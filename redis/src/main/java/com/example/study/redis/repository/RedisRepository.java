@@ -36,8 +36,8 @@ public class RedisRepository {
                 .map(value -> objectMapperUtil.readValue(value, clazz));
     }
 
-    public Long getKeyExpiration(String key) {
-        return redisTemplate.getExpire(key, TimeUnit.MINUTES);
+    public Long getKeyExpiration(String key, TimeUnit timeUnit) {
+        return redisTemplate.getExpire(key, timeUnit);
     }
 
     public Boolean hasKey(String key){
