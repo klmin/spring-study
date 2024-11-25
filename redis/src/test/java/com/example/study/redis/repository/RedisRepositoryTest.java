@@ -88,4 +88,26 @@ class RedisRepositoryTest {
 
     }
 
+    @Test
+    void 키확인(){
+
+        redisRepository.insert("member:"+id, member, 100, TimeUnit.MINUTES);
+        Boolean hasKey = redisRepository.hasKey("member:"+id);
+        assertTrue(hasKey);
+
+        hasKey = redisRepository.hasKey("member1:"+id);
+        assertFalse(hasKey);
+
+    }
+
+    @Test
+    void 삭제(){
+        redisRepository.insert("member:"+id, member, 100, TimeUnit.MINUTES);
+        Boolean hasKey = redisRepository.hasKey("member:"+id);
+        assertTrue(hasKey);
+        redisRepository.delete("member:"+id);
+        hasKey = redisRepository.hasKey("member:"+id);
+        assertFalse(hasKey);
+    }
+
 }
