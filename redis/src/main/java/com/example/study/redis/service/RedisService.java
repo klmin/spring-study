@@ -86,6 +86,10 @@ public class RedisService {
         return redisRepository.get(key);
     }
 
+    public <T> T get(String key, Class<T> clazz){
+        return redisRepository.get(key, clazz);
+    }
+
     public <T> Optional<T> find(String key, Class<T> clazz){
         return redisRepository.find(key, clazz);
     }
