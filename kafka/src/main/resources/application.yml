@@ -1,14 +1,14 @@
-spring:
+spring :
+  config:
+    import:
+      - classpath:/db/application-mysql.yml
+      - classpath:/kafka/application-consumer.yml
+      - classpath:/kafka/application-producer.yml
+
   docker:
     compose:
       enabled: true
       file: kafka/docker-compose.yml
-
-  datasource:
-    url: jdbc:mysql://localhost:3307/study
-    username: study
-    password: study@1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     properties:
@@ -16,11 +16,7 @@ spring:
         format_sql: true
         show_sql: true
         use_sql_comments: true
-        dialect: org.hibernate.dialect.MySQLDialect
     open-in-view: false
-
-  kafka:
-    bootstrap-servers: localhost:9092
 
 logging:
   level:
