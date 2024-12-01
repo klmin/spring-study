@@ -4,7 +4,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.6'
 }
 
-group = 'com.example.study.redis'
+group = 'com.example.study.kafka'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -25,12 +25,14 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.apache.kafka:kafka-streams'
     implementation 'org.springframework.kafka:spring-kafka'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.33'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
-    runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.kafka:spring-kafka-test'

@@ -1,0 +1,31 @@
+spring:
+  docker:
+    compose:
+      enabled: true
+      file: kafka/docker-compose.yml
+
+  datasource:
+    url: jdbc:mysql://localhost:3307/study
+    username: study
+    password: study@1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        use_sql_comments: true
+        dialect: org.hibernate.dialect.MySQLDialect
+    open-in-view: false
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+logging:
+  level:
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.orm.jpa: DEBUG
+
+
+
