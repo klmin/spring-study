@@ -27,6 +27,6 @@ public class KafkaConsumer {
     }
 
     private void log(String topic, Object message) {
-        log.info("[{}] received message: {}", KafkaTopic.TEST_KAFKA_REQUEST_TOPIC.getTopic() ,message);
+        log.info("[{}] received message: {}", topic ,message);
     }
 }
