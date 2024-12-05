@@ -6,8 +6,8 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum KafkaTopic {
-    TEST_STRING_TOPIC("test-string-topic", "test-group"),
-    TEST_OBJECT_TOPIC("test-object-topic", "test-group")
+    TEST_OBJECT_TOPIC("test-object-topic", "test-group"),
+    TEST_KAFKA_REQUEST_TOPIC("test-kafka-request-topic", "test-group")
     ;
 
     private final String topic;

@@ -59,6 +59,7 @@ class KafkaControllerTest {
         Map<String, Object> editMap = objectMapper.convertValue(kafkaRequest, new TypeReference<>() {});
 
         MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
+
         editMap.forEach((key, value) -> {
             if (value instanceof List) {
                 ((List<?>) value).forEach(item -> multiValueMap.add(key, item.toString()));
@@ -77,14 +78,13 @@ class KafkaControllerTest {
                 .andDo(print())
                 .andExpect(status().is(200));
 
-        Thread.sleep(5000);
-
+        Thread.sleep(10000);
     }
 
     private static Stream<Arguments> fetchGet() {
         return Stream.of(
-                Arguments.of(KafkaTopic.TEST_STRING_TOPIC.getTopic(), "테스트이름", 1, 90L, List.of("수영", "음악"), Map.of("수학",90,"영어",80)),
-                Arguments.of(KafkaTopic.TEST_OBJECT_TOPIC.getTopic(), "테스트이름", 1, 90L, List.of("수영", "음악"), Map.of("수학",90,"영어",80))
+                Arguments.of(KafkaTopic.TEST_OBJECT_TOPIC.getTopic(), "테스트이름", 1, 90L, List.of("수영", "음악"), Map.of("수학",90,"영어",80)),
+                Arguments.of(KafkaTopic.TEST_KAFKA_REQUEST_TOPIC.getTopic(), "테스트이1", 2, 91L, List.of("영어", "운동"), Map.of("수학",70,"영어",70))
         );
     }
 
