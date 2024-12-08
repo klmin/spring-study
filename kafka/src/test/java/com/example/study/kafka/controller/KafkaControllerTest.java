@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -36,25 +37,12 @@ class KafkaControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @DisplayName("카프카 요청 테스트")
+    @DisplayName("카프카 요청 테스트 GET")
     @ParameterizedTest
     @MethodSource("fetchGet")
     void get요청(String topic, String name, Integer grade, Long number, List<String> hobby, Map<String, Object> score) throws Exception {
 
-        KafkaRequest kafkaRequest = new KafkaRequest();
-
-        Map<String, Object> fieldValues = Map.of(
-            "topic", topic,
-            "name", name,
-            "grade", grade,
-            "number", number,
-            "hobby", hobby,
-            "score", score
-        );
-
-        fieldValues.forEach((field, value) -> {
-            ReflectionTestUtils.setField(kafkaRequest, field, value);
-        });
+        KafkaRequest kafkaRequest = initKafkaRequest(topic, name, grade, number, hobby, score);
 
         Map<String, Object> editMap = objectMapper.convertValue(kafkaRequest, new TypeReference<>() {});
 
@@ -88,9 +76,47 @@ class KafkaControllerTest {
         );
     }
 
-    @Test
-    void post요청(){
+    @DisplayName("카프카 요청 테스트 POST")
+    @ParameterizedTest
+    @MethodSource("fetchPost")
+    void post요청(String topic, String name, Integer grade, Long number, List<String> hobby, Map<String, Object> score) throws Exception {
 
+        KafkaRequest kafkaRequest = initKafkaRequest(topic, name, grade, number, hobby, score);
+
+        mockMvc.perform(post("/kafka/send")
+                        .content(objectMapper.writeValueAsString(kafkaRequest))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().is(200));
+
+        Thread.sleep(10000);
+
+    }
+
+    private static Stream<Arguments> fetchPost() {
+        return Stream.of(
+                Arguments.of(KafkaTopic.TEST_OBJECT_TOPIC.getTopic(), "테스트이름2", 3, 93L, List.of("게임", "공부"), Map.of("수학",95,"영어",85)),
+                Arguments.of(KafkaTopic.TEST_KAFKA_REQUEST_TOPIC.getTopic(), "테스트이름3", 4, 94L, List.of("축구", "야구"), Map.of("수학",60,"영어",60))
+        );
+    }
+
+    private KafkaRequest initKafkaRequest(String topic, String name, Integer grade, Long number, List<String> hobby, Map<String, Object> score){
+        KafkaRequest kafkaRequest = new KafkaRequest();
+
+        Map<String, Object> fieldValues = Map.of(
+                "topic", topic,
+                "name", name,
+                "grade", grade,
+                "number", number,
+                "hobby", hobby,
+                "score", score
+        );
+
+        fieldValues.forEach((field, value) -> {
+            ReflectionTestUtils.setField(kafkaRequest, field, value);
+        });
+
+        return kafkaRequest;
     }
 
 }
